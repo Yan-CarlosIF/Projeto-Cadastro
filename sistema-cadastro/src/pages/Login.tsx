@@ -1,6 +1,28 @@
 import { Code, EnvelopeSimple, Lock, UserPlus } from "phosphor-react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+  name: z.string().nonempty("O nome é obrigatório"),
+  email: z
+    .string()
+    .nonempty("O email é obrigatório")
+    .email("Formato de email inválido"),
+  password: z.string().nonempty("A senha é obrigatória"),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 const Login = () => {
+  const { register, handleSubmit } = useForm({
+    resolver: zodResolver(formSchema),
+  });
+
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+  };
+
   return (
     <div className="rounded-2xl flex bg-[var(--type-white)] w-5xl h-[555px] rounded-r-2xl shadow-2xl">
       <div className="w-1/3 bg-[var(--secondary-color)] rounded-l-2xl flex justify-center items-center flex-col text-white px-13">
@@ -26,12 +48,14 @@ const Login = () => {
         <form
           action="submit"
           className="flex justify-center flex-col items-center gap-6 mt-5 text-[#5d500a]"
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="relative">
             <input
               type="text"
               placeholder="Nome"
               className="w-lg h-15 pl-13 rounded-2xl bg-[var(--primary-color)] shadow-[var(--custom-shadow)] text-[23px] font-bold outline-none"
+              {...register("name")}
             />
             <UserPlus
               className="absolute top-5.5 left-6"
@@ -44,6 +68,7 @@ const Login = () => {
               type="email"
               placeholder="Email"
               className="w-lg h-15 pl-13 rounded-2xl bg-[var(--primary-color)] shadow-[var(--custom-shadow)] text-[23px] font-bold outline-none"
+              {...register("email")}
             />
             <EnvelopeSimple
               className="absolute top-5.5 left-6"
@@ -56,6 +81,7 @@ const Login = () => {
               type="password"
               placeholder="Senha"
               className="w-lg h-15 pl-13 rounded-2xl bg-[var(--primary-color)] shadow-[var(--custom-shadow)] mb-2 text-[23px] font-bold outline-none"
+              {...register("password")}
             />
             <Lock
               className="absolute top-5.5 left-6"
@@ -65,7 +91,10 @@ const Login = () => {
             />
           </div>
           <div className="flex justify-center rounded-[30px] w-[230px] h-18 cursor-pointer mt-auto mb-20 bg-[var(--secondary-color)] duration-300 ease-in-out">
-            <button className="text-2xl font-bold leading-0 cursor-pointer text-white">
+            <button
+              className="text-2xl font-bold leading-0 cursor-pointer text-white"
+              type="submit"
+            >
               CADASTRAR
             </button>
           </div>
