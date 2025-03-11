@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import LeftSide from "../components/LoginOrRegisterSide";
+import { api } from "../lib/axios";
+import { useNavigate } from "react-router-dom";
 
 const registerformSchema = z.object({
   name: z.string().nonempty("O nome é obrigatório"),
@@ -20,8 +22,11 @@ const Register = () => {
     resolver: zodResolver(registerformSchema),
   });
 
+  const navigate = useNavigate();
+
   const onSubmit = (data: registerFormData) => {
-    console.log(data);
+    api.post("/users", data);
+    navigate("/login");
   };
 
   return (
@@ -29,7 +34,7 @@ const Register = () => {
       <LeftSide
         title="Cadastro"
         subtitle="Cadastre sua conta"
-        buttonTitle="Entrar"
+        buttonTitle="Login"
       />
 
       <div className="flex flex-col items-center text-black w-full p-12">

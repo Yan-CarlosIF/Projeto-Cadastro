@@ -3,6 +3,15 @@ import LeftSide from "../components/LoginOrRegisterSide";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { api } from "../lib/axios";
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
 
 const loginFormSchema = z.object({
   email: z
@@ -18,9 +27,24 @@ const Login = () => {
   const { register, handleSubmit } = useForm({
     resolver: zodResolver(loginFormSchema),
   });
+  const navigate = useNavigate();
 
-  const onSubmit = (data: loginFormData) => {
-    console.log(data);
+  const onSubmit = async (data: loginFormData) => {
+    try {
+      const result = await api.get(`/users`);
+
+      const user = result.data.find((user: User) => {
+        return user.email === data.email && user.password === data.password;
+      });
+
+      console.log(user);
+
+      if (user) {
+        navigate("/main");
+      }
+    } catch {
+      console.log("erro");
+    }
   };
 
   return (
