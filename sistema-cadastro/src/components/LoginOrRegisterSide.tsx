@@ -23,7 +23,7 @@ const LeftSide = ({ subtitle, title, buttonTitle }: LeftSideProps) => {
         <p className="text-xl">agora mesmo.</p>
       </div>
       <button
-        className="text-2xl font-bold leading-0 cursor-pointer flex items-center justify-center border-4 rounded-[30px] w-[230px] h-18 mt-auto mb-20 hover:bg-[var(--hover-white)] duration-300 ease-in-out"
+        className="text-2xl font-bold leading-0 cursor-pointer flex items-center justify-center border-4 rounded-[30px] w-[230px] h-18 mt-auto mb-20 hover:bg-[#29213d] duration-300 ease-in-out"
         onClick={() => navigation(goToLink)}
       >
         {buttonTitle.toUpperCase()}

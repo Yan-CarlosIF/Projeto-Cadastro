@@ -43,7 +43,7 @@ const Register = () => {
 
         <form
           action="submit"
-          className="flex justify-center flex-col items-center gap-6 mt-5 text-[#5d500a]"
+          className="flex justify-center flex-col items-center gap-6 mt-5 text-[var(--secondary-color)]"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="relative">
@@ -56,7 +56,7 @@ const Register = () => {
             <UserPlus
               className="absolute top-5.5 left-6"
               size={20}
-              color="#5d500a"
+              color="var(--secondary-color)"
             />
           </div>
           <div className="relative">
@@ -69,7 +69,7 @@ const Register = () => {
             <EnvelopeSimple
               className="absolute top-5.5 left-6"
               size={20}
-              color="#5d500a"
+              color="var(--secondary-color)"
             />
           </div>
           <div className="relative">
@@ -83,7 +83,7 @@ const Register = () => {
               className="absolute top-5.5 left-6"
               size={20}
               weight="fill"
-              color="#5d500a"
+              color="var(--secondary-color)"
             />
           </div>
           <div className="flex justify-center rounded-[30px] w-[230px] h-18 cursor-pointer mt-auto mb-20 bg-[var(--secondary-color)] duration-300 ease-in-out">

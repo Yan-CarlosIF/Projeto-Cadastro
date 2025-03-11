@@ -33,26 +33,32 @@ const UserDashboard = () => {
       <div className="flex flex-col items-center text-black w-full p-12">
         <h1 className="text-4xl font-extrabold">Seus Dados</h1>
 
-        <Table className="mt-12 border-1 rounded-2xl">
-          <TableCaption className="text-xl mt-5">
+        <Table className="mt-12 border-1 border-black">
+          <TableCaption className="text-xl mt-5 text-black">
             Dados cadastados.
           </TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[80px] border-r-1">ID</TableHead>
-              <TableHead className="border-r-1">Nome</TableHead>
-              <TableHead className="border-r-1">E-mail</TableHead>
+              <TableHead className="w-[80px] border-1 text-black border-black">
+                ID
+              </TableHead>
+              <TableHead className="border-1 text-black border-black">
+                Nome
+              </TableHead>
+              <TableHead className="border-1 text-black border-black">
+                E-mail
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell className="font-medium text-lg border-r-1">
+              <TableCell className="font-medium text-lg border-1 border-black">
                 {user.id}
               </TableCell>
-              <TableCell className="font-medium text-lg border-r-1">
+              <TableCell className="font-medium text-lg border-1 border-black">
                 {user.name}
               </TableCell>
-              <TableCell className="font-medium text-lg border-r-1">
+              <TableCell className="font-medium text-lg border-1 border-black">
                 {user.email}
               </TableCell>
             </TableRow>
