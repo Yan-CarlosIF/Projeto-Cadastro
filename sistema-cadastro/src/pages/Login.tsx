@@ -4,14 +4,9 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { api } from "../lib/axios";
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-}
+import { User } from "../@types/user";
+import { useContext } from "react";
+import { UserContext } from "../contexts/userContext";
 
 const loginFormSchema = z.object({
   email: z
@@ -28,22 +23,20 @@ const Login = () => {
     resolver: zodResolver(loginFormSchema),
   });
   const navigate = useNavigate();
+  const { setUser, fetchUsers } = useContext(UserContext);
 
   const onSubmit = async (data: loginFormData) => {
-    try {
-      const result = await api.get(`/users`);
+    const result = await fetchUsers();
 
-      const user = result.data.find((user: User) => {
-        return user.email === data.email && user.password === data.password;
-      });
+    const user: User | undefined = result.find((user: User) => {
+      return user.email === data.email && user.password === data.password;
+    });
 
-      console.log(user);
-
-      if (user) {
-        navigate("/main");
-      }
-    } catch {
-      console.log("erro");
+    if (user) {
+      setUser(user);
+      navigate("/dashboard");
+    } else {
+      console.log("Usuário ou senha incorretos");
     }
   };
 
